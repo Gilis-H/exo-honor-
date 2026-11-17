@@ -1,0 +1,19 @@
+# Fichiers fournis avec XAMPP
+/dashboard/
+/webalizer/
+/xampp/
+/img/
+/applications.html
+/bitnami.css
+/favicon.ico
+
+# Configuration locale et fichiers temporaires
+.env
+.env.*
+!.env.example
+/.tmp*/
+/.agents/
+/.codex/
+/.aws/
+.DS_Store
+Thumbs.db
