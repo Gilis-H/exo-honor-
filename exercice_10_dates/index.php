@@ -1,3 +1,7 @@
+<?php
+include_once '_livraisons.php';
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +24,19 @@
 	<h1>Exercice 10 : Objets et dates</h1>
 	<h2>Livraisons</h2>
 	<div class="flex">
+		<?php
+	
+
+		foreach ($livraisons as $data){
+			echo "<div>";
+			echo "<h3>$data->reference &mdash; $data->titre</h3>";
+			$datecommande = $data->dateCommande->format("d/m/Y");
+			echo "<p>Commandé le $datecommande</p>";
+			$livraison_estimee = $data->dateLivraisonEstimee->format("d/m/Y");
+			echo "<p class='ok'> Livré le $livraison_estimee</p>";
+			echo "</div>";
+		};
+		?>
 		<!--
 		<div>
 			<h3>CMD001 &mdash; Poster Céline Dion</h3>

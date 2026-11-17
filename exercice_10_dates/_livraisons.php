@@ -24,7 +24,8 @@ class Livraison
     }
 	
 	public function retard() {
-		if ($this->dateLivraisonEstimee < $this->dateLivraison) {
+        // $this désigne la livraison courante : PHP compare les dates des objets DateTimeImmutable pour détecter une livraison effectuée après la date estimée.
+		if ($this->dateLivraisonEstimee < $this->dateLivraison) { 
 			return true;
 		}
 		else {

@@ -2,7 +2,8 @@
 //valeur par défaut si pas de paramètre GET
 $page = 1 ;	
 //récupération du paramètre GET s'il existe et conversion (int) pour sécurité
-if (isset($_GET['page'])) $page = (int) $_GET['page'] ;
+if (isset($_GET['page'])) $page = (int) $_GET['page'];
+if ($page < 1 || $page > 3) $page = 1 ; //si page n'est pas entre 1 et 3, on remet à 1
 
 ?><!DOCTYPE html>
 <html>

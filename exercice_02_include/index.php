@@ -10,6 +10,8 @@
 	include '_nav.php' ;
 	?>
 	<h2>Accueil</h2>
-	
+	<?php 
+	include '_footer.php' ;
+	?>
 </body>
 </html>
