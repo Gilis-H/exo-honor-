@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Brussels');
 $hote='localhost';
-$nomBD='projetWeb';
+$nomBD='walkingPets';
 $user='root';
 $mdp='';
 try {
