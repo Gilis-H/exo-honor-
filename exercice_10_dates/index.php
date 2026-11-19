@@ -25,15 +25,22 @@ include_once '_livraisons.php';
 	<h2>Livraisons</h2>
 	<div class="flex">
 		<?php
-	
 
 		foreach ($livraisons as $data){
+			
 			echo "<div>";
 			echo "<h3>$data->reference &mdash; $data->titre</h3>";
-			$datecommande = $data->dateCommande->format("d/m/Y");
-			echo "<p>Commandé le $datecommande</p>";
-			$livraison_estimee = $data->dateLivraisonEstimee->format("d/m/Y");
-			echo "<p class='ok'> Livré le $livraison_estimee</p>";
+			echo '<p>Commandé le ', $data->dateCommande->format('d/m/Y'), '</p>';
+			
+
+
+			if (isset($data->dateLivraison)) {
+				echo' <p class="ok"> Livré le ', $data->dateLivraison->format('d/m/Y'),'</p>';
+				if($data->retard()){
+					$r = $data->dateLivraison->diff($data->dateLivraisonEstimee)->days;
+					echo '<span class="retard">(+', $r, ' jours)</span>';
+				}
+			}
 			echo "</div>";
 		};
 		?>
