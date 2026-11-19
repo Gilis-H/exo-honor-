@@ -17,14 +17,36 @@ require_once '_bd_connexion.php'
 	?>
 
 	<?php
-	$reqpets=$bd->prepare('SELECT pets.id_pet, pets.name, pets.walks, pets.meals, pets.comment, categories.name as type , categories.icon, categories.max_walks FROM pets LEFT JOIN categories ON pets.id_cat=categories.id_cat');
+	$reqpets=$bd->prepare('SELECT pets.id_pet, pets.name, pets.walks, pets.meals, pets.comment, categories.name as type , categories.icon, categories.max_walks FROM pets LEFT JOIN categories ON pets.id_cat=categories.id_cat ORDER BY pets.name ASC');
 	$reqpets->execute();
-
+	echo "<ul id='pets'>";
 	while($pets=$reqpets->fetch()){
-		echo "<ul id='pets'>";
 		echo "<li class='pet'><a href='modif_pet.php?id_pet={$pets['id_pet']}'>";
-		echo "<img src='icons/','{$pets['icon']'' alt=""><h3>"
+		if (empty($pets['icon'])){
+			echo "<img src='icons/unknown.png' alt=''><h3>{$pets['name']}</h3>";
+		}
+		else {
+			echo "<img src='icons/{$pets['icon']}'' alt=''><h3>{$pets['name']}</h3>";
+		}
+		if ($pets['walks']>$pets['max_walks']){
+		echo "<p>walks : <s>{$pets['walks']}</s> {$pets['max_walks']}</p>";
+		}
+		else{
+		echo "<p>walks : {$pets['walks']}</p>";
+		}
+
+		
+		echo "<p>meals : {$pets['meals']}</p>";
+		if (empty($pets['comment'])){
+
+		}
+		else{
+			echo "<p title='{$pets['comment']}'>- remarque -</p>";
+		}
+
+		echo "</a></li>";
 	};
+	echo "</ul>"
 	?>
 		<!--
 		<ul id="pets">

@@ -1,11 +1,20 @@
+<?php
+require_once '_bd_connexion.php'
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Walking Pets - modification</title>
 	<!-- metas -->
+	 	<?php
+	include_once '_metas.php'
+	?>
 </head>
 <body>
 	<!-- header -->
+	 	<?php
+	include_once '_header.php'
+	?>
 	<main>
 		<!--
 		<form method="post" action="modif_pet.php?id_pet=16">
@@ -21,5 +30,8 @@
 		-->
 	</main>
 	<!-- footer -->
+	 	<?php
+	include_once '_footer.php'
+	?>
 </body>
 </html>
