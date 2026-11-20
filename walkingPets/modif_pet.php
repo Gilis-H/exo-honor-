@@ -1,11 +1,11 @@
 <?php
+// [TON CODE] Inclusion de la connexion ; [CODEX] ajout du point-virgule.
 require_once '_bd_connexion.php';
 
-// Ton raisonnement est correct : récupérer en début de page le id_pet présent dans URL,
-// le valider, puis le réutiliser comme paramètre de la requête pour charger cet animal.
-// Ici, début de page signifie le bloc PHP avant le HTML, pas la balise <head> ni _header.php.
-// Le code ci-dessous suit déjà cette démarche.
-// Modification : valider le paramètre GET envoyé par le lien de index.php.
+// [TON IDEE] Récupérer le id_pet sélectionné en début de page, puis le réutiliser dans la requête.
+// [CODEX - IMPLEMENTATION] Le bloc de validation et les redirections ci-dessous ont été écrits par Codex.
+// Début de page désigne ici le PHP avant le HTML, pas <head> ni _header.php.
+// [CODEX] Validation du paramètre GET : entier positif obligatoire.
 $id_pet = filter_var($_GET['id_pet'] ?? null, FILTER_VALIDATE_INT, [
     'options' => ['min_range' => 1],
 ]);
@@ -14,12 +14,14 @@ if ($id_pet === false) {
     exit;
 }
 
-// Modification : WHERE sélectionne uniquement cet animal ; sa valeur est transmise séparément du SQL.
+// [TON CODE ADAPTE PAR CODEX] Tu avais écrit le SELECT avec la jointure et un tri par nom.
+// Codex a déplacé la requête avant le HTML et remplacé le tri par WHERE pets.id_pet = ?.
+// [CODEX] execute reçoit maintenant $id_pet ; fetch utilise explicitement PDO::FETCH_ASSOC.
 $reqpets = $bd->prepare('SELECT pets.id_pet, pets.name, pets.walks, pets.meals, pets.comment, categories.name AS type, categories.icon, categories.max_walks FROM pets LEFT JOIN categories ON pets.id_cat = categories.id_cat WHERE pets.id_pet = ?');
 $reqpets->execute([$id_pet]);
 $pets = $reqpets->fetch(PDO::FETCH_ASSOC);
 
-// Modification : un identifiant inexistant renvoie vers index.php.
+// [CODEX] Redirection si aucun animal ne correspond à cet identifiant.
 // La requête précède le HTML pour permettre cette redirection avec header().
 if ($pets === false) {
     header('Location: index.php');
@@ -42,13 +44,14 @@ if ($pets === false) {
 	?>
 	<main>
 		<?php
+		// [TON CODE] Affichage du formulaire, de son lien, de la photo et du nom.
 		echo "<form method='post' action='modif_pet.php?id_pet={$pets['id_pet']}'>";
 		echo "<div id='pet'>";
 		echo "<img src='icons/{$pets['icon']}' alt=''>";
 		echo "<h2>{$pets['name']}</h2>";
 		?>
 
-		<!--
+		<!-- Exemple HTML fourni avec le cours, conservé comme référence.
 		<form method="post" action="modif_pet.php?id_pet=16">
 			<div id="pet">
 				<img src="icons/leash.png" alt="">
