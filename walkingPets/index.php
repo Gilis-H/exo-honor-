@@ -1,5 +1,6 @@
 <?php
-require_once '_bd_connexion.php'
+require_once '_bd_connexion.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,12 +23,19 @@ require_once '_bd_connexion.php'
 	echo "<ul id='pets'>";
 	while($pets=$reqpets->fetch()){
 		echo "<li class='pet'><a href='modif_pet.php?id_pet={$pets['id_pet']}'>";
+		$estModifie = in_array($pets['id_pet'], $_SESSION['id_pet_session'] ?? []);
+		$classeNom = "";
+		if ($estModifie) {
+			$classeNom = " class='modif'";
+		}
+
 		if (empty($pets['icon'])){
-			echo "<img src='icons/unknown.png' alt=''><h3>{$pets['name']}</h3>";
+			echo "<img src='icons/unknown.png' alt=''>";
 		}
 		else {
-			echo "<img src='icons/{$pets['icon']}'' alt=''><h3>{$pets['name']}</h3>";
+			echo "<img src='icons/{$pets['icon']}' alt=''>";
 		}
+		echo "<h3{$classeNom}>{$pets['name']}</h3>";
 		if ($pets['walks']>$pets['max_walks']){
 		echo "<p>walks : <s>{$pets['walks']}</s> {$pets['max_walks']}</p>";
 		}

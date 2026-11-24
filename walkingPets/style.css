@@ -13,6 +13,7 @@ img { max-width:100%; }
 h1 { text-align:center; }
 h2 { font-size:1.5rem; }
 h3, p { margin:0.2em 0; }
+.modif {color: yellow;}
 a { text-decoration:none; color:#eee; }
 s { color:#bbb;}
 header, nav, footer { text-align:center;}
