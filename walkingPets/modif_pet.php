@@ -37,7 +37,14 @@ session_start();
 		<?php
 		echo "<form method='post' action='modif_pet.php?id_pet={$pets['id_pet']}'>";
 		echo "<div id='pet'>";
-		echo "<img src='icons/{$pets['icon']}' alt=''>";
+		if (empty($pets['icon'])){
+			echo "<img src='icons/leash.png' alt=''>";
+
+		}
+		else{
+			echo "<img src='icons/{$pets['icon']}' alt=''>";
+
+		}
 		echo "<h2>{$pets['name']}</h2>";
 		echo "<label for='walks'>walks : <input id='walks' name='walks' type='number' min='0' size='3' value='{$pets['walks']}'></label>";
 		echo "<label for='meals'>meals : <input id='meals' name='meals' type='number' min='0' size='3' value='{$pets['meals']}'></label>";
